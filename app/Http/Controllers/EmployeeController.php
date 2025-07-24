@@ -16,9 +16,16 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::all();
+        $query = Employee::query();
+
+        if($request->filled('employee_id')){
+            $query->where('id', $request->employee_id);
+        }
+
+        $employees = $query->with(['department', 'position'])->paginate(20);
+
         return view('employees.index', compact('employees'));
     }
 

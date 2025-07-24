@@ -34,59 +34,66 @@
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100">
-                    @foreach ($employees as $employee)
-                        <tr>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $loop->iteration }}</td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->first_name }} {{ $employee->last_name }}</td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->email }}</td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->phone }}</td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->address }}</td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->date_of_birth }}</td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->hire_date }}</td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">${{ number_format($employee->salary, 2) }}</td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">
-                                <img src="{{ asset('images/'.$employee->image) }}"
-                                     alt="{{ $employee->first_name }}"
-                                     class="w-11 h-11 rounded object-cover border">
-                            </td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->department->name }}</td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->position->title }}</td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">
-                                <span class="inline-block px-2 py-1 text-xs font-semibold rounded
-                                    {{ $employee->status ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
-                                    {{ $employee->status ? 'Active' : 'Inactive' }}
-                                </span>
-                            </td>
-                            <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">
-                                <a href="{{ route('employees.show', $employee->id) }}"
-                                   class="inline-flex items-start justify-center px-2 py-1 text-xs text-white bg-gray-800 hover:bg-gray-700 rounded"
-                                   title="View">
-                                    <i class="fas fa-eye"></i>
-                                </a>
-                                <a href="{{ route('employees.edit', $employee->id) }}"
-                                   class="inline-flex items-start justify-center px-2 py-1 text-xs text-white bg-yellow-500 hover:bg-yellow-600 rounded"
-                                   title="Edit">
-                                    <i class="fas fa-edit"></i>
-                                </a>
-                                <form x-data
-                                      @submit.prevent="if (confirm('Are you sure you want to delete this employee?')) $el.submit()"
-                                      action="{{ route('employees.destroy', $employee->id) }}" method="POST"
-                                      class="inline-block">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit"
-                                            class="inline-flex items-start justify-center px-2 py-1 text-xs text-white bg-red-600 hover:bg-red-700 rounded"
-                                            title="Delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
+                @forelse ($employees as $key => $employee)
+                    <tr>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employees->firstItem() + $key }}</td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->first_name }} {{ $employee->last_name }}</td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->email }}</td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->phone }}</td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->address }}</td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->date_of_birth }}</td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->hire_date }}</td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->salary }}</td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">
+                            <img src="{{ asset('images/'.$employee->image) }}"
+                                    alt="{{ $employee->first_name }}"
+                                    class="w-11 h-11 rounded object-cover border">
+                        </td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->department->name }}</td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">{{ $employee->position->title }}</td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">
+                            <span class="inline-block px-2 py-1 text-xs font-semibold rounded
+                                {{ $employee->status ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                                {{ $employee->status ? 'Active' : 'Inactive' }}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap">
+                            <a href="{{ route('employees.show', $employee->id) }}"
+                                class="inline-flex items-start justify-center px-2 py-1 text-xs text-white bg-gray-800 hover:bg-gray-700 rounded"
+                                title="View">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ route('employees.edit', $employee->id) }}"
+                                class="inline-flex items-start justify-center px-2 py-1 text-xs text-white bg-yellow-500 hover:bg-yellow-600 rounded"
+                                title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form x-data
+                                    @submit.prevent="if (confirm('Are you sure you want to delete this employee?')) $el.submit()"
+                                    action="{{ route('employees.destroy', $employee->id) }}" method="POST"
+                                    class="inline-block">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                        class="inline-flex items-start justify-center px-2 py-1 text-xs text-white bg-red-600 hover:bg-red-700 rounded"
+                                        title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="13" class="text-center">No employees found.</td>
+                    </tr>
+                @endforelse
                 </tbody>
             </table>
         </div>
-        <div class="pagination mt-4 flex justify-center"></div>
+        <!-- Pagination and Export -->
+            <div class="mt-3 d-flex justify-content-between align-items-center">
+                {{ $employees->appends(request()->query())->links() }}
+            </div>
     </div>
 
 @endsection
