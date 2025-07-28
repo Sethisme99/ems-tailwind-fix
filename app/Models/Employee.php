@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Employee extends Model
 {
-    
     use HasFactory;
-
 
     protected $fillable = [
         'first_name',
@@ -41,7 +39,7 @@ class Employee extends Model
         return $this->hasMany(Attendance::class);
     }
 
-
+    
     public function holidays()
     {
         return $this->hasMany(Holiday::class);

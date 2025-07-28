@@ -11,7 +11,8 @@ class Attendance extends Model
         'employee_id',
         'date',
         'check_in',
-        'check_out'
+        'check_out',
+        'total_hours_worked'
     ];
 
     public function employee()

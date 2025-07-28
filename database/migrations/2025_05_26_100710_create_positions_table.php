@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('title');
             $table->timestamps();
         });
-
         //insert default positions
         DB::table('positions')->insert([
             ['title' => 'HR Manager', 'created_at' => now(), 'updated_at' => now()],
@@ -41,7 +40,6 @@ return new class extends Migration
             ['title' => 'Administrative Assistant', 'created_at' => now(), 'updated_at' => now()],
             ['title' => 'Quality Assurance Engineer', 'created_at' => now(), 'updated_at' => now()],
         ]);
-
     }
 
     /**

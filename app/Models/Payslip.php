@@ -4,23 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Holiday extends Model
+class Payslip extends Model
 {
     protected $fillable = [
         'employee_id',
-        'notes',
-        'start_date',
-        'end_date',
-        'status'
+        'month',
+        'year',
+        'base_salary',
+        'ot_1_5_pay',
+        'ot_2_0_pay',
+        'deduction',
+        'total_salary',
     ];
 
     public function employee()
     {
         return $this->belongsTo(Employee::class);
-    }
-
-    public function scopeWithRelationshipAutoloading($query)
-    {
-        return $query->with('employee');
     }
 }

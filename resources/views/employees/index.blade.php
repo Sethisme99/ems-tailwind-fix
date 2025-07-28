@@ -6,15 +6,38 @@
 
 @section('content')
     <div class="flex flex-col md:flex-row justify-between items-center flex-wrap mb-6">
-        <h3 class="text-xl font-bold text-gray-800 mb-3 md:mb-0">Employees</h3>
+        <h3 class="text-xl font-bold text-gray-800 mb-3 md:mb-0">Employees ({{ $employees->total() }})</h3>
         <a href="{{ route('employees.create') }}"
-           class="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded">
+           class="inline-flex items-center px-3 py-2 text-sm font-medium shadow  text-white bg-yellow-500 hover:bg-yellow-600 transition rounded">
             <i class="fas fa-plus mr-2"></i> Add Employee
         </a>
     </div>
 
     <div class="bg-white shadow rounded overflow-hidden"">
         <div class="w-full overflow-x-auto">
+        <!--Search Form start-->
+            <form method="GET" action="{{ route('employees.index') }}" class="mb-4 flex flex-col sm:flex-row items-center gap-2">
+                <input
+                    type="number"
+                    name="employee_id"
+                    placeholder="Search by ID"
+                    value="{{ request('employee_id') }}"
+                    class="w-full sm:w-60 px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                />
+
+                <button type="submit"
+                    class="inline-flex items-center gap-1 px-3 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded shadow">
+                    <i class="fas fa-search"></i>
+                    Search
+                </button>
+
+                <a href="{{ route('employees.index') }}"
+                    class="inline-flex items-center gap-1 px-3 py-2 text-sm text-gray-700 bg-gray-200 hover:bg-gray-300 rounded shadow">
+                    Reset
+                </a>
+            </form>
+        <!--Search Form end-->
+
             <table class="min-w-[1000px] md:min-w-full divide-y divide-gray-200 text-sm text-left text-gray-800">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-600">
                     <tr>

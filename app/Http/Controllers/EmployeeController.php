@@ -24,7 +24,7 @@ class EmployeeController extends Controller
             $query->where('id', $request->employee_id);
         }
 
-        $employees = $query->with(['department', 'position'])->paginate(20);
+        $employees = $query->with(['department', 'position'])->paginate(50);
 
         return view('employees.index', compact('employees'));
     }
@@ -117,6 +117,19 @@ class EmployeeController extends Controller
         if(file_exists(public_path('images/'.$image))) {
             unlink(public_path('images/'.$image));
         }
+    }
+
+
+    //Search Attendance:
+    public function search(Request $request)
+    {
+        $query = $request->input('q');
+        $employees = \App\Models\Employee::where('first_name', 'like', "%$query%")
+            ->orWhere('last_name', 'like', "%$query%")
+            ->limit(10)
+            ->get(['id', 'first_name', 'last_name']);
+
+        return response()->json($employees);
     }
 
 
