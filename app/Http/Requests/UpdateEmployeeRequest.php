@@ -22,10 +22,13 @@ class UpdateEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id_staff' => 'required|string|max:64|unique:employees,id_staff,' . $this->employee->id,
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:64|unique:employees,email'.$this->employee->id,
+            'national_id' => 'nullable|string|max:255',
+            'nssf_id' => 'nullable|string|max:255',
             'phone' => 'required|max:20',
+            'place_of_birth' => 'required|string|max:255',
             'address' => 'required|string|max:255',
             'date_of_birth' => 'date',
             'hire_date' => 'date',
@@ -33,7 +36,8 @@ class UpdateEmployeeRequest extends FormRequest
             'salary' => 'required|integer',
             'department_id' => 'exists:departments,id',
             'position_id' => 'exists:positions,id',
-            'status' => 'boolean'
+            'documents_submitted' => 'required|in:0,1',
+            'status' => 'required|in:0,1'
         ];
     }
 }

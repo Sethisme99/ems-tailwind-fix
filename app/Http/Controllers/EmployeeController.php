@@ -8,6 +8,7 @@ use App\Models\Position;
 use App\Models\Department;
 use App\Http\Requests\AddEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use Illuminate\Support\Facades\DB;
 
 
 
@@ -20,8 +21,16 @@ class EmployeeController extends Controller
     {
         $query = Employee::query();
 
-        if($request->filled('employee_id')){
-            $query->where('id', $request->employee_id);
+        // Check if a search query is provided
+        if ($request->filled('q')) {
+            $q = $request->q;
+
+            $query->where(function ($subQuery) use ($q) {
+                $subQuery->where('id_staff', 'like', "%$q%")
+                        ->orWhere('first_name', 'like', "%$q%")
+                        ->orWhere('last_name', 'like', "%$q%")
+                        ->orWhere(DB::raw("CONCAT(first_name, ' ', last_name)"), 'like', "%$q%");
+            });
         }
 
         $employees = $query->with(['department', 'position'])->paginate(50);

@@ -21,19 +21,24 @@ class AddEmployeeRequest extends FormRequest
      */
     public function rules(): array
     {
+    
         return [
+            'id_staff' => 'required|string|unique:employees,id_staff|max:64',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|email|unique:employees,email|max:64',
+            'national_id' => 'nullable|string|max:255',
+            'nssf_id' => 'nullable|string|max:255',
             'phone' => 'required|max:20',
+            'place_of_birth' => 'required|string|max:255',
             'address' => 'required|string|max:255',
-            'date_of_birth' => 'required|date',
-            'hire_date' => 'required|date',
-            'image' => 'required|image|mimes:jpeg,jpg,png,webp|max:2048',
+            'date_of_birth' => 'date',
+            'hire_date' => 'date',
+            'image' => 'image|mimes:jpeg,jpg,png,webp|max:2048',
             'salary' => 'required|integer',
-            'department_id' => 'required|exists:departments,id',
-            'position_id' => 'required|exists:positions,id',
-            'status' => 'boolean'
+            'department_id' => 'exists:departments,id',
+            'position_id' => 'exists:positions,id',
+            'documents_submitted' => 'required|in:0,1',
+            'status' => 'required|in:0,1'
         ];
     }
 }

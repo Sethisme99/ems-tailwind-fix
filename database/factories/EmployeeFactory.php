@@ -19,18 +19,22 @@ class EmployeeFactory extends Factory
 public function definition(): array
 {
     return [
+        'id_staff'       => $this->faker->unique()->numberBetween(1000, 9999), // ✅ use numberBetween
         'first_name'     => $this->faker->firstName,
         'last_name'      => $this->faker->lastName,
-        'email'          => $this->faker->unique()->safeEmail,
+        'national_id'    => $this->faker->unique()->numerify('##########'),     // ✅ 10-digit unique ID
+        'nssf_id'        => $this->faker->unique()->numerify('########'),       // ✅ 8-digit unique ID
         'phone'          => $this->faker->phoneNumber,
+        'place_of_birth' => $this->faker->city,                                 // ✅ more realistic
         'address'        => $this->faker->address,
-        'date_of_birth'  => $this->faker->date('Y-m-d', '-18 years'),
-        'hire_date'      => now(),
+        'date_of_birth'  => $this->faker->date('Y-m-d', now()->subYears(18)),   // ✅ ensures age ≥ 18
+        'hire_date'      => $this->faker->date('Y-m-d'),
         'image'          => 'default.jpg',
-        'salary'         => $this->faker->numberBetween(500, 5000),
-        'department_id'  => Department::inRandomOrder()->value('id'),
-        'position_id'    => Position::inRandomOrder()->value('id'),
-        'status'         => $this->faker->boolean,
+        'salary'         => $this->faker->numberBetween(200, 1000),
+        'department_id'  => \App\Models\Department::inRandomOrder()->value('id'),
+        'position_id'    => \App\Models\Position::inRandomOrder()->value('id'),
+        'documents_submitted' => $this->faker->boolean,
+        'status'              => $this->faker->boolean,
     ];
 }
 }

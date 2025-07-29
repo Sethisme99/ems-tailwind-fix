@@ -6,8 +6,8 @@
 
 @section('content')
     <div class="flex flex-col md:flex-row justify-between items-center mb-6">
-        <h3 class="text-2xl font-bold text-gray-800">
-            Employee CV - {{ $employee->first_name }} {{ $employee->last_name }}
+        <h3 class="text-2xl font-extrabold text-gray-800">
+            Employee CV : {{ $employee->id_staff }}
         </h3>
     </div>
 
@@ -18,7 +18,7 @@
                  class="rounded-lg w-48 h-48 object-cover shadow" />
             <div class="text-center md:text-left">
                 <h1 class="text-3xl font-bold text-gray-900">
-                    {{ $employee->first_name }} {{ $employee->last_name }}
+                {{ $employee->first_name }} {{ $employee->last_name }}
                 </h1>
             </div>
         </div>
@@ -29,9 +29,15 @@
                 <h2 class="text-xl font-semibold text-gray-800 mb-4 border-b pb-2">
                     Personal Information
                 </h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-gray-700">
-                    <div><strong>Email:</strong> {{ $employee->email }}</div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-gray-700">
+                    <div><strong>ID Staff:</strong> {{ $employee->id_staff }}</div>
+                    <div><strong>First Name:</strong> {{ $employee->first_name }}</div>
+                    <div><strong>Last Name:</strong> {{ $employee->last_name }}</div>
+                    <div><strong>NSSF ID:</strong> {{ $employee->nssf_id }}</div>
+                    <div><strong>National ID:</strong> {{ $employee->national_id }}</div>
                     <div><strong>Phone:</strong> {{ $employee->phone }}</div>
+                    <div><strong>Place Of Birth:</strong> {{ $employee->place_of_birth }}</div>
                     <div><strong>Address:</strong> {{ $employee->address }}</div>
                     <div><strong>Date of Birth:</strong> {{ $employee->date_of_birth }}</div>
                 </div>
@@ -47,6 +53,7 @@
                     <div><strong>Salary:</strong> {{ $employee->salary }}</div>
                     <div><strong>Department:</strong> {{ $employee->department->name }}</div>
                     <div><strong>Position:</strong> {{ $employee->position->title }}</div>
+                    <div><strong>Documents Submitted:</strong> {{ $employee->documents_submitted ? 'Yes' : 'No' }}</div>
                     <div><strong>Status:</strong> {{ $employee->status ? 'Active' : 'Inactive' }}</div>
                 </div>
             </div>

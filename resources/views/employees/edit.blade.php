@@ -12,6 +12,20 @@
             @csrf
             @method('PUT')
 
+            <!-- Id Staff -->
+            <div>
+                <label for="id_staff" class="block text-sm font-semibold text-gray-700 mb-1">Staff ID</label>
+                <input type="text" name="id_staff" id="id_staff"
+                    value="{{ old('id_staff', $employee->id_staff) }}"
+                    placeholder="Staff ID"
+                    class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                        @error('id_staff') border-red-500 ring-red-500 focus:ring-red-500 @enderror" />
+                @error('id_staff')
+                    <p class="text-red-600 mt-1 text-sm">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- First Name -->
             <div>
                 <label for="first_name" class="block text-sm font-medium text-gray-700">First Name</label>
@@ -44,21 +58,36 @@
                 @enderror
             </div>
 
-            <!-- Email -->
+            <!-- National_ID -->
             <div>
-                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-blue-500 focus:border-blue-500 @error('email') border-red-500 @enderror"
-                    placeholder="Email"
-                    value="{{ old('email', $employee->email) }}"
-                />
-                @error('email')
-                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                <label for="national_id" class="block text-sm font-semibold text-gray-700 mb-1">National ID</label>
+                <input type="text" name="national_id" id="national_id"
+                    value="{{ old('national_id', $employee->national_id) }}"
+                    placeholder="National ID"
+                    class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                        @error('national_id') border-red-500 ring-red-500 focus:ring-red-500 @enderror" />
+                @error('national_id')
+                    <p class="text-red-600 mt-1 text-sm">{{ $message }}</p>
                 @enderror
             </div>
+
+            <!-- NSSF_ID -->
+
+
+            <div>
+                <label for="nssf_id" class="block text-sm font-semibold text-gray-700 mb-1">NSSF ID</label>
+                <input type="text" name="nssf_id" id="nssf_id"
+                    value="{{ old('nssf_id', $employee->nssf_id) }}"
+                    placeholder="NSSF ID"
+                    class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                        @error('nssf_id') border-red-500 ring-red-500 focus:ring-red-500 @enderror" />
+                @error('nssf_id')
+                    <p class="text-red-600 mt-1 text-sm">{{ $message }}</p>
+                @enderror
+            </div>
+
 
             <!-- Phone -->
             <div>
@@ -75,6 +104,23 @@
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
+            <!-- Birth of Place -->
+
+            <div>
+                <label for="place_of_birth" class="block text-sm font-semibold text-gray-700 mb-1">Place of Birth</label>
+                <input type="text" name="place_of_birth" id="place_of_birth"
+                    value="{{ old('place_of_birth', $employee->place_of_birth) }}"
+                    placeholder="Place of Birth"
+                    class="w-full rounded-md border border-gray-300 px-4 py-2 text-gray-900 placeholder-gray-400
+                        focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
+                        @error('place_of_birth') border-red-500 ring-red-500 focus:ring-red-500 @enderror" />
+                @error('place_of_birth')
+                    <p class="text-red-600 mt-1 text-sm">{{ $message }}</p>
+                @enderror
+            </div>
+
+
 
             <!-- Address -->
             <div>
@@ -106,6 +152,25 @@
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>
+
+
+            <!--Document submit-->
+
+            <div>
+                <label for="documents_submitted" class="block text-sm font-medium text-gray-700">Documents Submitted</label>
+                <select
+                    name="documents_submitted"
+                    id="documents_submitted"
+                    class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 bg-white focus:ring-blue-500 focus:border-blue-500 @error('documents_submitted') border-red-500 @enderror"
+                >
+                    <option value="1" {{ old('documents_submitted', $employee->documents_submitted) == '1' ? 'selected' : '' }}>Yes</option>
+                    <option value="0" {{ old('documents_submitted', $employee->documents_submitted) == '0' ? 'selected' : '' }}>No</option>
+                </select>
+                @error('documents_submitted')
+                    <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
 
             <!-- Hire Date -->
             <div>
