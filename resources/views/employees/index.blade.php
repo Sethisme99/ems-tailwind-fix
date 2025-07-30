@@ -5,39 +5,57 @@
 @endsection
 
 @section('content')
-    <div class="flex flex-col md:flex-row justify-between items-center flex-wrap mb-6">
+    <div class="flex flex-col md:flex-row justify-between items-center flex-wrap mb-6 px-3 py-2 shadow rounded">
         <h3 class="text-xl font-bold text-gray-800 mb-3 md:mb-0">Employees ({{ $employees->total() }})</h3>
         <a href="{{ route('employees.create') }}"
            class="inline-flex items-center px-3 py-2 text-sm font-medium shadow  text-white bg-yellow-500 hover:bg-yellow-600 transition rounded">
             <i class="fas fa-plus mr-2"></i> Add Employee
         </a>
     </div>
+    <!--search and excel import-->
+        <div class="flex flex-col md:flex-row justify-between items-center flex-wrap mb-6">
+            <!--Search Form start-->
+                <form method="GET" action="{{ route('employees.index') }}" class="mb-4 flex flex-col sm:flex-row items-center gap-2">
+                    <input
+                        type="text"
+                        name="q"
+                        placeholder="Search by Staff ID or Name"
+                        value="{{ request('q') }}"
+                        class="w-full sm:w-60 px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                    />
 
+                    <button type="submit"
+                        class="inline-flex items-center gap-1 px-3 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded shadow">
+                        <i class="fas fa-search"></i>
+                        Search
+                    </button>
+
+                    <a href="{{ route('employees.index') }}"
+                        class="inline-flex items-center gap-1 px-3 py-2 text-sm text-gray-700 bg-gray-200 hover:bg-gray-300 rounded shadow">
+                        Reset
+                    </a>
+                </form>
+            <!--Search Form end-->
+            <!-- Import Excel -->
+                <form action="#" method="POST" enctype="multipart/form-data"
+                    class="flex flex-col sm:flex-row items-center gap-2 mb-6">
+                    @csrf
+                    <input
+                        type="file"
+                        name="file"
+                        required
+                        class="block w-full sm:w-auto text-sm text-gray-700 border border-gray-300 rounded-md shadow-sm file:mr-3 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-green-100 file:text-green-700 hover:file:bg-green-200"
+                    >
+                    <button type="submit"
+                            class="px-4 py-2 text-sm font-medium text-white bg-green-600 hover:bg-green-700 rounded shadow">
+                        Import Excel
+                    </button>
+                </form>
+            <!-- Import Excel end-->
+        </div>
+    <!--search and excel import end-->
     <div class="bg-white overflow-hidden">
         <div class="w-full overflow-x-auto">
-
-        <!--Search Form start-->
-            <form method="GET" action="{{ route('employees.index') }}" class="mb-4 flex flex-col sm:flex-row items-center gap-2">
-                <input
-                    type="text"
-                    name="q"
-                    placeholder="Search by Staff ID or Name"
-                    value="{{ request('q') }}"
-                    class="w-full sm:w-60 px-3 py-2 text-sm border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                />
-
-                <button type="submit"
-                    class="inline-flex items-center gap-1 px-3 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded shadow">
-                    <i class="fas fa-search"></i>
-                    Search
-                </button>
-
-                <a href="{{ route('employees.index') }}"
-                    class="inline-flex items-center gap-1 px-3 py-2 text-sm text-gray-700 bg-gray-200 hover:bg-gray-300 rounded shadow">
-                    Reset
-                </a>
-            </form>
-        <!--Search Form end-->
 
             <table class="min-w-[1000px] md:min-w-full divide-y divide-gray-200 border border-gray-300 text-sm text-left text-gray-800">
                 <thead class="bg-gray-100 text-xs uppercase text-gray-600">
@@ -82,7 +100,7 @@
                         </td>
                         <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap border border-gray-300">{{ $employee->department->name }}</td>
                         <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap border border-gray-300">{{ $employee->position->title }}</td>
-                       
+
                         <td class="px-4 py-3 text-left text-gray-900 whitespace-nowrap border border-gray-300">
                             <span class="inline-block px-2 py-1 text-xs font-semibold rounded
                                 {{ $employee->documents_submitted ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">

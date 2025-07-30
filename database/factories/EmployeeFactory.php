@@ -19,7 +19,7 @@ class EmployeeFactory extends Factory
 public function definition(): array
 {
     return [
-        'id_staff'       => $this->faker->unique()->numberBetween(1000, 9999), // ✅ use numberBetween
+        'id_staff'       => $this->faker->unique()->numberBetween(100, 99999), // ✅ use numberBetween
         'first_name'     => $this->faker->firstName,
         'last_name'      => $this->faker->lastName,
         'national_id'    => $this->faker->unique()->numerify('##########'),     // ✅ 10-digit unique ID
