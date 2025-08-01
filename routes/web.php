@@ -18,3 +18,5 @@ Route::get('/api/employees/search', [App\Http\Controllers\EmployeeController::cl
 Route::post('/attendances/import', [AttendanceController::class, 'import'])->name('attendances.import');
 Route::get('/attendances/export', [AttendanceController::class, 'export'])->name('attendances.export');
 Route::get('/attendance-summary', [AttendanceSummaryController::class, 'index'])->name('attendance.summary');
+//Payslip:
+Route::resource('payslips', \App\Http\Controllers\PayslipController::class);

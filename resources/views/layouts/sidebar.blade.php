@@ -18,14 +18,14 @@
       </a>
     </li>
         <li>
-      <a href="#" class="flex items-center gap-2 hover:bg-blue-500 px-3 py-2 rounded transition
-      {{ request()->routeIs('') ? 'bg-blue-100 text-blue-700 font-bold' : 'text-white' }}">
+      <a href="{{ route('attendance.summary') }}" class="flex items-center gap-2 hover:bg-blue-500 px-3 py-2 rounded transition
+      {{ request()->routeIs('attendance.summary') ? 'bg-blue-100 text-blue-700 font-bold' : 'text-white' }}">
         <i class="fa fa-list-alt"></i> Monthly Attendance
       </a>
     </li>
         <li>
-      <a href="#" class="flex items-center gap-2 hover:bg-blue-500 px-3 py-2 rounded transition
-      {{ request()->routeIs('') ? 'bg-blue-100 text-blue-700 font-bold' : 'text-white' }}">
+      <a href="{{ route('payslips.index') }}" class="flex items-center gap-2 hover:bg-blue-500 px-3 py-2 rounded transition
+      {{ request()->routeIs('payslips.index') ? 'bg-blue-100 text-blue-700 font-bold' : 'text-white' }}">
         <i class="fa-solid fa-file-invoice-dollar"></i> Payslips
       </a>
     </li>
