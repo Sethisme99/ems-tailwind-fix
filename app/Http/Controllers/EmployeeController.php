@@ -9,6 +9,9 @@ use App\Models\Department;
 use App\Http\Requests\AddEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
 use Illuminate\Support\Facades\DB;
+use App\Exports\EmployeesExport;
+use App\Imports\EmployeesImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -139,6 +142,13 @@ class EmployeeController extends Controller
             ->get(['id', 'first_name', 'last_name']);
 
         return response()->json($employees);
+    }
+
+
+    //Export Excel:
+    public function exportAll()
+    {
+        return Excel::download(new EmployeesExport, 'employees.xlsx');
     }
 
 

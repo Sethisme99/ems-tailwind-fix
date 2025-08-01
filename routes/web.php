@@ -20,3 +20,7 @@ Route::get('/attendances/export', [AttendanceController::class, 'export'])->name
 Route::get('/attendance-summary', [AttendanceSummaryController::class, 'index'])->name('attendance.summary');
 //Payslip:
 Route::resource('payslips', \App\Http\Controllers\PayslipController::class);
+
+
+//Import and Export to Excel and PDF:
+Route::get('/employees/export/excel', [EmployeeController::class, 'exportAll'])->name('employees.export');

@@ -153,5 +153,13 @@
             </div>
     </div>
 
+    <!-- Export Button -->
+    <div class="mt-4">
+        <a href="{{ route('employees.export') }}"
+            class="inline-flex items-center px-4 py-2 text-sm text-blue-700 border border-blue-500 rounded hover:bg-blue-50">
+            <i class="fas fa-download mr-2"></i> Download Excel
+        </a>
+    </div>
+
 @endsection
 
