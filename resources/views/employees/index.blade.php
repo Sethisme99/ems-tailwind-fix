@@ -37,7 +37,7 @@
                 </form>
             <!--Search Form end-->
             <!-- Import Excel -->
-                <form action="#" method="POST" enctype="multipart/form-data"
+                <form action="{{ route('employees.import') }}" method="POST" enctype="multipart/form-data"
                     class="flex flex-col sm:flex-row items-center gap-2 mb-6">
                     @csrf
                     <input

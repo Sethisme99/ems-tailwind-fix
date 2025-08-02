@@ -146,9 +146,26 @@ class EmployeeController extends Controller
 
 
     //Export Excel:
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        try {
+            Excel::import(new EmployeesImport, $request->file('file'));
+
+            return back()->with('success', 'Employees imported successfully!');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Import failed: ' . $e->getMessage());
+        }
+    }
+
+
     public function exportAll()
     {
-        return Excel::download(new EmployeesExport, 'employees.xlsx');
+        return Excel::download(new EmployeesExport, 'employees.xls');
     }
 
 

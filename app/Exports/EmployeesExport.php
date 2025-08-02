@@ -26,8 +26,8 @@ class EmployeesExport implements FromCollection, WithHeadings
                 $employee->salary,
                 optional($employee->department)->name,
                 optional($employee->position)->title,
-                $employee->documents_submitted ? 'Yes' : 'No',
-                $employee->status ? 'Active' : 'Inactive',
+                $employee->documents_submitted ? '1' : '0',
+                $employee->status ? '1' : '0',
             ];
         });
     }

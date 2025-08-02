@@ -5,6 +5,8 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\AttendanceSummaryController;
 
+
+
 Route::get('/', function () {
     return view('dashboard');
 })->name('dashboard');
@@ -23,4 +25,5 @@ Route::resource('payslips', \App\Http\Controllers\PayslipController::class);
 
 
 //Import and Export to Excel and PDF:
+Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees.import');
 Route::get('/employees/export/excel', [EmployeeController::class, 'exportAll'])->name('employees.export');
