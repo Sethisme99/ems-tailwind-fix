@@ -17,18 +17,37 @@
 </head>
 <body class="bg-light">
 
-    <div class="flex min-h-screen">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-sky-700/100 text-white flex flex-col p-4">
-            <div class="text-xl font-bold mb-6 px-3 py-2">EMS Application</div>
-            @include('layouts.sidebar')
-        </aside>
+<div 
+    x-data="{ sidebarOpen: JSON.parse(localStorage.getItem('sidebarOpen') ?? 'true') }"
+    x-init="$watch('sidebarOpen', val => localStorage.setItem('sidebarOpen', val))"
+    class="flex min-h-screen">
 
-        <!-- Main Content -->
-        <main class="flex-1 p-6 overflow-auto max-h-screen">
-            @yield('content')
-        </main>
-    </div>
+    <!-- Sidebar -->
+    <aside
+        :class="sidebarOpen ? 'w-60' : 'w-15'"
+        class="bg-sky-700 text-white flex flex-col transition-all duration-300 ease-in-out overflow-hidden">
+
+        <!-- Toggle Button -->
+        <button @click="sidebarOpen = !sidebarOpen"
+                class="p-2 text-white hover:bg-sky-500 focus:outline-none self-end">
+            <i :class="sidebarOpen ? 'fas fa-angle-left' : 'fas fa-angle-right'"></i>
+        </button>
+
+        <!-- Title -->
+        <div class="text-xl font-bold mb-6 px-3 py-2 whitespace-nowrap ">EMS Application</div>
+
+        <!-- Sidebar Links -->
+        <div>
+            @include('layouts.sidebar')
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6 overflow-auto max-h-screen">
+        @yield('content')
+    </main>
+</div>
+
 
 
     <!-- Alpine.js already included via app.js -->
