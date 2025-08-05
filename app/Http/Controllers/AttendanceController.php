@@ -41,6 +41,7 @@ class AttendanceController extends Controller
         $data = $request->validated();
 
         $exists = Attendance::where([
+            'id_staff' => $data['id_staff'],
             'employee_id' => $data['employee_id'],
             'date' => $data['date'],
         ])->exists();
@@ -84,6 +85,8 @@ class AttendanceController extends Controller
 
         // Optional: Check for duplicates (but avoid blocking this current record itself)
         $exists = Attendance::where([
+
+            'id_staff' => $data['id_staff'],
             'employee_id' => $data['employee_id'],
             'date' => $data['date'],
         ])->where('id', '!=', $attendance->id)->exists();
@@ -129,7 +132,7 @@ class AttendanceController extends Controller
 
     public function export()
     {
-        return Excel::download(new AttendanceExport, 'attendances.xlsx');
+        return Excel::download(new AttendanceExport, 'attendances.xls');
     }
 
 

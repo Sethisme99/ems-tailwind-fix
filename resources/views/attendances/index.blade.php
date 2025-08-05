@@ -13,7 +13,7 @@
     </div>
 
     <!-- Import Excel -->
-    <form action="#" method="POST" enctype="multipart/form-data"
+    <form action="{{route('attendances.import')}}" method="POST" enctype="multipart/form-data"
           class="flex flex-col sm:flex-row items-center gap-2 mb-6">
         @csrf
         <input
@@ -34,6 +34,7 @@
             <thead class="bg-gray-100 text-xs uppercase text-gray-600">
                 <tr>
                     <th class="px-4 py-3">#</th>
+                    <th class="px-4 py-3">ID_Staff</th>
                     <th class="px-4 py-3">Employee Name</th>
                     <th class="px-4 py-3">Date</th>
                     <th class="px-4 py-3">Check In</th>
@@ -46,6 +47,7 @@
                 @foreach ($attendances as $attendance)
                     <tr>
                         <td class="px-4 py-3">{{ $loop->iteration }}</td>
+                        <td class="px-4 py-3">{{ $attendance->employee->id_staff }}</td>
                         <td class="px-4 py-3">
                             {{ $attendance->employee->first_name }} {{ $attendance->employee->last_name }}
                         </td>
@@ -80,7 +82,7 @@
 
     <!-- Export Button -->
     <div class="mt-4">
-        <a href="#"
+        <a href="{{route('attendances.export')}}"
            class="inline-flex items-center px-4 py-2 text-sm text-blue-700 border border-blue-500 rounded hover:bg-blue-50">
             <i class="fas fa-download mr-2"></i> Download Excel
         </a>

@@ -138,8 +138,9 @@ class EmployeeController extends Controller
         $query = $request->input('q');
         $employees = \App\Models\Employee::where('first_name', 'like', "%$query%")
             ->orWhere('last_name', 'like', "%$query%")
+            ->orWhere('id_staff', 'like', "%$query%")
             ->limit(10)
-            ->get(['id', 'first_name', 'last_name']);
+            ->get(['id', 'first_name', 'last_name', 'id_staff']);
 
         return response()->json($employees);
     }

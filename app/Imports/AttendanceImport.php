@@ -19,9 +19,9 @@ class AttendanceImport implements ToModel, WithHeadingRow, SkipsOnError
     public function model(array $row)
     {
         // Check if employee exists
-        $employee = Employee::find($row['employee_id']);
+        $employee = Employee::where($row['id_staff']);
         if (!$employee) {
-            Log::warning("Skipped row: Employee ID {$row['employee_id']} does not exist.");
+            Log::warning("Skipped row: Employee ID {$row['id_staff']} does not exist.");
             return null; // Skip this row
         }
 
@@ -31,12 +31,13 @@ class AttendanceImport implements ToModel, WithHeadingRow, SkipsOnError
             $checkOut = Carbon::parse($row['check_out']);
             $totalHoursWorked = $checkIn->floatDiffInHours($checkOut);
         } catch (\Exception $e) {
-            Log::error("Error parsing times for employee ID {$row['employee_id']} on {$row['date']}: " . $e->getMessage());
+            Log::error("Error parsing times for Staff ID {$row['id_staff']} on {$row['date']}: " . $e->getMessage());
             return null; // Skip problematic row
         }
 
         return new Attendance([
             'employee_id'        => $row['employee_id'],
+            'id_staff'           => $row['id_staff'],
             'date'               => $row['date'],
             'check_in'           => $row['check_in'],
             'check_out'          => $row['check_out'],

@@ -22,6 +22,7 @@ class UpdateAttendanceRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'id_staff' => 'required|exists:employees,id_staff',
             'employee_id' => 'required|exists:employees,id',
             'date' => 'required|date',
             'check_in' => 'required|date_format:H:i',

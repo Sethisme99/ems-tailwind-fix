@@ -47,8 +47,9 @@
                 <label for="employee_search" class="block text-sm font-medium text-gray-700">Employee</label>
                 <input type="text" id="employee_search" placeholder="Search employee..."
                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
-                       autocomplete="off">
+                       autocomplete="on">
                 <input type="hidden" name="employee_id" id="employee_id">
+                <input type="hidden" name="id_staff" id="id_staff">
 
                 <ul id="employee_list"
                     class="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow max-h-52 overflow-y-auto hidden text-sm">
@@ -73,58 +74,62 @@
         </form>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const searchInput = document.getElementById('employee_search');
-            const hiddenInput = document.getElementById('employee_id');
-            const employeeList = document.getElementById('employee_list');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const searchInput = document.getElementById('employee_search');
+        const hiddenEmployeeId = document.getElementById('employee_id');
+        const hiddenStaffId = document.getElementById('id_staff');
+        const employeeList = document.getElementById('employee_list');
 
-            let timeout = null;
+        let timeout = null;
 
-            searchInput.addEventListener('input', function () {
-                const query = this.value.trim();
+        searchInput.addEventListener('input', function () {
+            const query = this.value.trim();
 
-                clearTimeout(timeout);
-                if (!query) {
-                    employeeList.classList.add('hidden');
-                    return;
-                }
+            clearTimeout(timeout);
+            if (!query) {
+                employeeList.classList.add('hidden');
+                return;
+            }
 
-                timeout = setTimeout(() => {
-                    fetch(`/api/employees/search?q=${encodeURIComponent(query)}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            employeeList.innerHTML = '';
-                            if (data.length === 0) {
+            timeout = setTimeout(() => {
+                fetch(`/api/employees/search?q=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        employeeList.innerHTML = '';
+                        if (data.length === 0) {
+                            employeeList.classList.add('hidden');
+                            return;
+                        }
+
+                        data.forEach(emp => {
+                            const item = document.createElement('li');
+                            item.className = 'cursor-pointer px-4 py-2 hover:bg-blue-100';
+                            item.textContent = `${emp.first_name} ${emp.last_name}`;
+                            item.dataset.id = emp.id;
+                            item.dataset.staff = emp.id_staff; // include id_staff in the dataset
+
+                            item.addEventListener('click', function () {
+                                searchInput.value = this.textContent;
+                                hiddenEmployeeId.value = this.dataset.id;
+                                hiddenStaffId.value = this.dataset.staff; // set id_staff value
                                 employeeList.classList.add('hidden');
-                                return;
-                            }
-
-                            data.forEach(emp => {
-                                const item = document.createElement('li');
-                                item.className = 'cursor-pointer px-4 py-2 hover:bg-blue-100';
-                                item.textContent = `${emp.first_name} ${emp.last_name}`;
-                                item.dataset.id = emp.id;
-
-                                item.addEventListener('click', function () {
-                                    searchInput.value = this.textContent;
-                                    hiddenInput.value = this.dataset.id;
-                                    employeeList.classList.add('hidden');
-                                });
-
-                                employeeList.appendChild(item);
                             });
 
-                            employeeList.classList.remove('hidden');
+                            employeeList.appendChild(item);
                         });
-                }, 300);
-            });
 
-            document.addEventListener('click', function (e) {
-                if (!e.target.closest('#employee_list') && e.target !== searchInput) {
-                    employeeList.classList.add('hidden');
-                }
-            });
+                        employeeList.classList.remove('hidden');
+                    });
+            }, 300);
         });
-    </script>
+
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('#employee_list') && e.target !== searchInput) {
+                employeeList.classList.add('hidden');
+            }
+        });
+    });
+</script>
+
 @endsection

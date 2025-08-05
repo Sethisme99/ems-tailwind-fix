@@ -8,6 +8,7 @@ class Attendance extends Model
 {
     //
     protected $fillable = [
+        'id_staff',
         'employee_id',
         'date',
         'check_in',

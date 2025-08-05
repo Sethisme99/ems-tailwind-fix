@@ -14,11 +14,11 @@ class AttendanceExport implements FromCollection, WithHeadings
     public function collection()
     {
         return Attendance::all([
-            'id', 'employee_id', 'date', 'check_in', 'check_out'
+            'id', 'employee_id', 'id_staff' , 'date', 'check_in', 'check_out'
         ]);
     }
     public function headings(): array
     {
-        return ['#', 'Employee_Id', 'Date', 'Check In', 'Check Out'];
+        return ['#', 'Employee_Id', 'ID_Staff' ,'Date', 'Check In', 'Check Out'];
     }
 }
