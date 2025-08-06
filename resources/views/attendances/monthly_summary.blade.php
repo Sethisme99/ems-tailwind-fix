@@ -62,8 +62,25 @@
 </form>
 
 
-    <div class="overflow-hidden">
-        <div class="w-full overflow-x-auto bg-white rounded-lg shadow">
+    <div x-data="{ scroll: null }" class="bg-white overflow-hidden">
+    <!-- Arrow Buttons (Top of the Table) -->
+    <div class="flex justify-end gap-2 px-4 py-2">
+        <button
+            @click="scroll.scrollBy({ left: -300, behavior: 'smooth' })"
+            class="bg-gray-200 hover:bg-blue-300 text-gray-800 px-3 py-1 rounded shadow text-sm cursor-pointer"
+        >
+            &larr; Back
+        </button>
+
+        <button
+            @click="scroll.scrollBy({ left: 300, behavior: 'smooth' })"
+            class="bg-gray-200 hover:bg-blue-300 text-gray-800 px-3 py-1 rounded shadow text-sm cursor-pointer"
+        >
+            Forward &rarr;
+        </button>
+    </div>
+        <!-- Scrollable Table -->
+        <div x-ref="scrollContainer" x-init="scroll = $refs.scrollContainer" class="w-full overflow-x-auto">
             <table class="min-w-[1000px] md:min-w-full divide-y divide-gray-200 border border-gray-300 text-sm text-left text-gray-800">
                 <thead class="bg-gray-100 text-xs uppercase tracking-wider text-gray-600">
                     <tr>
@@ -104,5 +121,12 @@
     <div class="mt-3 d-flex justify-content-between align-items-center">
         {{ $summaries->appends(request()->query())->links() }}
     </div>
+</div>
+<!-- Export Button -->
+<div class="mt-4">
+    <a href="{{ route('attendances.exportAllSummaries', ['month' => $month, 'year' => $year]) }}"
+        class="inline-flex items-center px-4 py-2 text-sm text-blue-700 border border-blue-500 rounded hover:bg-blue-50">
+        <i class="fas fa-download mr-2"></i> Download Excel
+    </a>
 </div>
 @endsection

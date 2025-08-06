@@ -24,6 +24,11 @@ Route::get('/attendance-summary', [AttendanceSummaryController::class, 'index'])
 Route::resource('payslips', \App\Http\Controllers\PayslipController::class);
 
 
+
 //Import and Export to Excel and PDF:
+
+Route::get('/export-summary/all', [AttendanceSummaryController::class, 'exportAllSummaries'])
+    ->name('attendances.exportAllSummaries');
+
 Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees.import');
 Route::get('/employees/export/excel', [EmployeeController::class, 'exportAll'])->name('employees.export');

@@ -7,6 +7,8 @@ use App\Services\AttendanceSummaryService;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
+use App\Exports\AttendanceSummaryAllExport;
+use App\Models\Attendance;
 
 class AttendanceSummaryController extends Controller
 {
@@ -62,4 +64,39 @@ public function index(Request $request)
 
     return view('attendances.monthly_summary', compact('summaries', 'month', 'year', 'search'));
 }
+
+//Attendance Export
+
+
+public function exportAllSummaries(Request $request)
+{
+    $month = $request->input('month', now()->month);
+    $year = $request->input('year', now()->year);
+
+    // Get unique employee IDs who have attendance in that month
+    $employeeIds = Attendance::whereMonth('date', $month)
+        ->whereYear('date', $year)
+        ->pluck('employee_id')
+        ->unique();
+
+    $summaries = [];
+
+    foreach ($employeeIds as $employeeId) {
+        $employee = \App\Models\Employee::find($employeeId);
+        if (!$employee) continue;
+
+        $summary = $this->summaryService->getMonthlySummary($employeeId, $month, $year);
+        $summaries[] = compact('employee', 'summary');
+    }
+
+    $filename = "all_summary_{$month}_{$year}.xls";
+
+    return \Maatwebsite\Excel\Facades\Excel::download(
+        new AttendanceSummaryAllExport($summaries),
+        $filename
+    );
+}
+
+
+
 }

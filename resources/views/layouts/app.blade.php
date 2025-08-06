@@ -34,7 +34,7 @@
         </button>
 
         <!-- Title -->
-        <div class="text-xl font-bold mb-6 px-3 py-2 whitespace-nowrap ">EMS Application</div>
+        <div x-show="sidebarOpen" class="text-xl font-bold mb-6 px-3 py-2 whitespace-nowrap ">EMS Application</div>
 
         <!-- Sidebar Links -->
         <div>
