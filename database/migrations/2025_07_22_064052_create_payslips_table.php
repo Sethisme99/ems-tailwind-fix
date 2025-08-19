@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('employee_id')->constrained()->onDelete('cascade');
             $table->integer('month');
             $table->integer('year');
+            $table->integer('working_days');
+            $table->decimal('total_hours', 6, 2)->default(0);
             $table->decimal('base_salary', 10, 2);
             $table->decimal('ot_1_5_hours', 8, 2)->default(0);
             $table->decimal('ot_2_0_hours', 8, 2)->default(0);

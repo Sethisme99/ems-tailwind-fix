@@ -15,13 +15,18 @@ Route::resource('employees',EmployeeController::class);
 Route::get('/api/employees/search', [App\Http\Controllers\EmployeeController::class, 'search']);
 
 //Attendance Routes:
-Route::resource('attendances',AttendanceController::class)->except(['show']);
+//Route::resource('attendances',AttendanceController::class)->except(['show']);
+Route::resource('attendances', AttendanceController::class);
+
+
 Route::get('/api/employees/search', [App\Http\Controllers\EmployeeController::class, 'search']);
 Route::post('/attendances/import', [AttendanceController::class, 'import'])->name('attendances.import');
 Route::get('/attendances/export', [AttendanceController::class, 'export'])->name('attendances.export');
 Route::get('/attendance-summary', [AttendanceSummaryController::class, 'index'])->name('attendance.summary');
 //Payslip:
 Route::resource('payslips', \App\Http\Controllers\PayslipController::class);
+Route::get('/payslips/{payslip}', [\App\Http\Controllers\PayslipController::class, 'showPayslip'])->name('payslips.show');
+Route::delete('/payslips/{payslip}', [\App\Http\Controllers\PayslipController::class, 'destroy'])->name('payslips.destroy');
 
 
 

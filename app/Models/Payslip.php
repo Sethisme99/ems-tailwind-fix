@@ -10,6 +10,8 @@ class Payslip extends Model
         'employee_id',
         'month',
         'year',
+        'working_days',
+        'total_hours',
         'base_salary',
         'ot_1_5_pay',
         'ot_2_0_pay',

@@ -55,6 +55,34 @@
                 @enderror
             </div>
 
+            <!-- Total hour -->
+            <div>
+            <label for="total_hours_worked" class="block text-sm font-medium text-gray-700">Total Hours Worked</label>
+            <input
+                type="text"
+                name="total_hours_worked"
+                id="total_hours_worked"
+                value="{{ old('total_hours_worked', $attendance->total_hours_worked) }}"
+                readonly
+                class="bg-gray-100 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500 text-sm"
+            />
+            </div>
+            
+            <div>
+            <label for="id_staff">ID Staff</label>
+            <input
+                type="text"
+                id="id_staff"
+                name="id_staff"
+                value="{{ old('id_staff', $attendance->id_staff) }}"
+                readonly
+                required
+            />
+            @error('id_staff')
+                <p class="text-red-600">{{ $message }}</p>
+            @enderror
+            </div>
+
             <!-- Employee -->
             <div>
                 <label for="employee_id" class="block text-sm font-medium text-gray-700">Employee</label>

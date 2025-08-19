@@ -51,4 +51,28 @@ class PayslipController extends Controller
         $payslips = Payslip::with('employee')->latest()->get();
         return view('payslips.index', compact('payslips'));
     }
+
+        /**
+     * Display the specified resource.
+     */
+        public function showPayslip(Payslip $payslip)
+        {
+
+            //eager load
+            $payslip->load('employee');
+            //dd($payslip);
+            return view('payslips.show', compact('payslip'));
+        }
+
+
+
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Payslip $payslip)
+    {
+        $payslip->delete();
+        return to_route('payslips.index')->with('success','Payslip deleted successfully');
+    }
 }

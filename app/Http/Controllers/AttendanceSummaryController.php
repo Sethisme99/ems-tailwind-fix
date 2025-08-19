@@ -39,6 +39,8 @@ public function index(Request $request)
                      ->orWhere(DB::raw("CONCAT(first_name, ' ', last_name)"), 'like', "%$q%");
         });
     }
+    //End Build query with optional search
+
 
     $employeesPaginator = $query->paginate(20);
     $summaries = [];

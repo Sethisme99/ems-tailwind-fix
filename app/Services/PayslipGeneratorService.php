@@ -26,11 +26,13 @@ class PayslipGeneratorService
 
         $summary = $this->attendanceSummaryService->getMonthlySummary($employeeId, $month, $year);
 
-        // Create payslip
+        // Create payslip 
         return Payslip::create([
             'employee_id'   => $employeeId,
             'month'         => $month,
             'year'          => $year,
+            'working_days'  => $summary['working_days'],
+            'total_hours'   => $summary['total_hours'],
             'base_salary'   => $summary['base_salary'],
             'ot_1_5_hours'  => $summary['ot_1_5_hours'],
             'ot_2_0_hours'  => $summary['ot_2_0_hours'],
